@@ -1,0 +1,15 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the PHP syntax
+        run: find . -name '*.php' -not -path './tests/*' -print0 | xargs -0 -n1 php -l
+      - name: Run the tests
+        run: php tests/exposure-meter.php
